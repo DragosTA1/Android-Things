@@ -10,7 +10,7 @@ or even help with parking in tight spaces. It’s simple, reliable, and full of 
 It’s a great way to dive into the world of building smart things with just a few easy-to-find parts.
 
   Schema
-
+```
 Raspberry Pi 5             HC-SR04 Sensor             LEDs + Resistors
 +-------------------------+      +------------+       +------------------------+
 | Pin 2  (5V) O---------->|----->| VCC        |       |                        |
@@ -31,6 +31,7 @@ Raspberry Pi 5             HC-SR04 Sensor             LEDs + Resistors
 | Pin 9  (GND) O----------|<--------------------------------------------+------|--(Common GND for LEDs)
 | ...                     |                                             |
 +-------------------------+                                             +------+
+```
 
 Ultrasonic Proximity Detection System – Quick Component Guide
 (Updated: April 14, 2025)
@@ -80,3 +81,88 @@ Here’s a quick overview of all the parts used in the project, along with usefu
 • RPi.GPIO → 🔗 RPi.GPIO PyPI (https://pypi.org/project/RPi.GPIO/)
 
 💡 Note: Some components—like resistors and LEDs—don’t have strict model numbers, so the links are to general guides or examples. Specs may vary slightly between vendors.
+
+🚧 Build & Setup Guide
+🔧 Step 1: Gather Your Components
+Raspberry Pi 5 (with OS installed and internet access)
+
+HC-SR04 ultrasonic sensor
+
+5mm LED + 330Ω resistor
+
+Breadboard + jumper wires (M-M, M-F)
+
+1kΩ and 2kΩ resistors (for voltage divider)
+
+USB-C power supply, HDMI monitor, keyboard, and mouse (for setup)
+
+🔌 Step 2: Wiring Setup
+HC-SR04 to Pi:
+
+VCC → Pi 5V
+
+GND → Pi GND
+
+TRIG → GPIO pin (e.g., GPIO 23)
+
+ECHO → Voltage divider → GPIO pin (e.g., GPIO 24)
+
+Voltage Divider (ECHO protection):
+
+ECHO → 1kΩ → GPIO
+
+GPIO side of 1kΩ → GND through 2kΩ
+
+LED Circuit:
+
+Long leg (anode) → 330Ω → GPIO (e.g., GPIO 18)
+
+Short leg (cathode) → GND
+
+🖥️ Step 3: Software Configuration
+Boot Raspberry Pi OS (latest version)
+
+Open terminal and install libraries:
+
+bash
+Copy
+Edit
+sudo apt update
+sudo apt install python3-gpiozero python3
+Create your Python file:
+
+bash
+Copy
+Edit
+nano proximity_alert.py
+Paste your proximity detection script (using gpiozero or custom RPi.GPIO if needed)
+
+✅ Step 4: Final Check
+Ensure all wires are snug and components are placed securely
+
+Save and exit your script with Ctrl + X, Y, then Enter
+
+▶️ Running the Project
+🟢 Step 1: Run the Program
+In the terminal, run:
+
+bash
+Copy
+Edit
+python3 proximity_alert.py
+👀 Step 2: Observe Behavior
+If an object comes closer than 50cm, the LED lights up
+
+If not, the LED stays off
+
+🔄 Step 3: Stop & Reset
+Use Ctrl + C to stop the script
+
+GPIOs are cleaned up automatically (if handled in code)
+
+🛠️ Tips & Troubleshooting
+No LED? Double-check GPIO numbers and resistor connections
+
+Wrong distances? Confirm sensor angle and clean surfaces
+
+Errors? Add print statements to debug in the script
